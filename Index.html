@@ -67,9 +67,9 @@
 
         document.getElementById("CEP").addEventListener('input',function(){
          var cepi = this.value;
-         const regexCep = /^[0-9]{8}$/;
-         
-         if(regexCep.test(cepi)){
+         const regexCep = /^[0-9]{5}-[0-9]{3}$/;
+         const regexCep2 = /^[0-9]{8}$/; 
+         if(regexCep.test(cepi) || regexCep2.test(cepi)){
             document.getElementById('CEP').className = "form-control is-valid";
          
          }
