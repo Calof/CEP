@@ -7,48 +7,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='./css/bootstrap.css'>
     <script src='./js/bootstrap.js'></script>
-    <script>
-       
-        
-        
-        function troca(){
 
-        var cep = document.getElementById("CEP");
-        var rua = document.getElementById("rua");
-        var bairro = document.getElementById("bairro");
-        var estado = document.getElementById("estado");
-        var cidade = document.getElementById("cidade");
-
-        fetch(`https://viacep.com.br/ws/${cep.value}/json`)
-        .then(response => response.json())
-        
-        .then(data =>{
-            console.log(data);
-            console.log(cep);
-            
-            rua.value = data.logradouro;
-            bairro.value = data.bairro;
-            cidade.value = data.localidade;
-            estado.value = data.uf;
-            
-        })
-        .catch(error =>{console.error('Erro: De requisição ', error);
-            alert("Este cep não existe");
-            rua.value = "";
-            bairro.value = "";
-            cidade.value = "";
-            estado.value = "";
-        }); 
-        
-        
-
-        
-        
-
-        }
-        
-
-    </script>
+    
 </head>
 <body>
 
@@ -64,13 +24,13 @@
             <div class="row ">
 
                 <div class="col-md-12">
-                <label for="formGroupExampleInput" class="form-label"> CEP </label>
-                <input type="text" class="form-control" id="CEP" placeholder="00000-00" >
+                    <label for="formGroupExampleInput" class="form-label"> CEP </label>
+                    <input type="text" class="form-control" id="CEP" placeholder="00000-000" >
                 </div>
 
                 <div class="col-sm">
-                <label for="formGroupExampleInput2" class="form-label">Rua</label>
-                <input type="text" class="form-control" id="rua"  disabled>
+                    <label for="formGroupExampleInput2" class="form-label">Rua</label>
+                    <input type="text" class="form-control" id="rua"  disabled>
                 </div>
 
                 <div class="col-sm-4">
@@ -102,6 +62,54 @@
         </div>
 
     </div>
-
+    <script>
+        
+ 
+        document.getElementById("CEP").addEventListener('input',function(){
+         var cepi = this.value;
+         const regexCep = /^[0-9]{8}$/;
+         
+         if(regexCep.test(cepi)){
+            document.getElementById('CEP').className = "form-control is-valid";
+         
+         }
+         else document.getElementById("CEP").className ="form-control is-invalid";
+        })
+         
+         function troca(){
+ 
+         var cep = document.getElementById("CEP");
+         var rua = document.getElementById("rua");
+         var bairro = document.getElementById("bairro");
+         var estado = document.getElementById("estado");
+         var cidade = document.getElementById("cidade");
+ 
+         fetch(`https://viacep.com.br/ws/${cep.value}/json`)
+         .then(response => response.json())
+         
+         .then(data =>{
+             console.log(data);
+             console.log(cep);
+             
+             rua.value = data.logradouro;
+             bairro.value = data.bairro;
+             cidade.value = data.localidade;
+             estado.value = data.uf;
+             
+         })
+         .catch(error =>{console.error('Erro: De requisição ', error);
+ 
+             alert(`Este cep não existe: ${cep.value}`);
+ 
+             cep.value = "";
+             rua.value = "";
+             bairro.value = "";
+             cidade.value = "";
+             estado.value = "";
+ 
+         }); }
+         
+ 
+     </script>
 </body>
 </html>
