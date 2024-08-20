@@ -90,11 +90,20 @@
          .then(data =>{
              console.log(data);
              console.log(cep);
-             
+             if(data.erro == "true"){
+             cep.value = "";
+             rua.value = "";
+             bairro.value = "";
+             cidade.value = "";
+             estado.value = "";
+             alert(`Este cep não existe: ${cep.value}`);
+             }
+             else{
              rua.value = data.logradouro;
              bairro.value = data.bairro;
              cidade.value = data.localidade;
              estado.value = data.uf;
+            }
              
          })
          .catch(error =>{console.error('Erro: De requisição ', error);
