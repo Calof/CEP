@@ -7,6 +7,48 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='./css/bootstrap.css'>
     <script src='./js/bootstrap.js'></script>
+    <script>
+       
+        
+        
+        function troca(){
+
+        var cep = document.getElementById("CEP");
+        var rua = document.getElementById("rua");
+        var bairro = document.getElementById("bairro");
+        var estado = document.getElementById("estado");
+        var cidade = document.getElementById("cidade");
+
+        fetch(`https://viacep.com.br/ws/${cep.value}/json`)
+        .then(response => response.json())
+        
+        .then(data =>{
+            console.log(data);
+            console.log(cep);
+            
+            rua.value = data.logradouro;
+            bairro.value = data.bairro;
+            cidade.value = data.localidade;
+            estado.value = data.uf;
+            
+        })
+        .catch(error =>{console.error('Erro: De requisição ', error);
+            alert("Este cep não existe");
+            rua.value = "";
+            bairro.value = "";
+            cidade.value = "";
+            estado.value = "";
+        }); 
+        
+        
+
+        
+        
+
+        }
+        
+
+    </script>
 </head>
 <body>
 
@@ -23,17 +65,17 @@
 
                 <div class="col-md-12">
                 <label for="formGroupExampleInput" class="form-label"> CEP </label>
-                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="00000-00" >
+                <input type="text" class="form-control" id="CEP" placeholder="00000-00" >
                 </div>
 
                 <div class="col-sm">
                 <label for="formGroupExampleInput2" class="form-label">Rua</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Rua ..." disabled>
+                <input type="text" class="form-control" id="rua"  disabled>
                 </div>
 
                 <div class="col-sm-4">
                     <label for="formGroupExampleInput2" class="form-label">Bairro</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Bairro ..." disabled>
+                    <input type="text" class="form-control" id="bairro"  disabled>
                 </div>
                
             </div>
@@ -42,15 +84,19 @@
                    
     
                     <div class="col-sm">
-                    <label for="formGroupExampleInput2" class="form-label">cidade</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Cidade..." disabled>
+                    <label for="formGroupExampleInput2" class="form-label">Cidade</label>
+                    <input type="text" class="form-control" id="cidade"  disabled>
                     </div>
 
                     <div class="col-sm-4">
-                    <label for="formGroupExampleInput2" class="form-label">estado</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Estado..." disabled>
+                    <label for="formGroupExampleInput2" class="form-label">Estado</label>
+                    <input type="text" class="form-control" id="estado" disabled>
                     </div>
+                    
             
+            </div>
+            <div class="row p-2">
+            <button type="button" class="btn btn-success" onclick="troca()" >pesquisar</button>
             </div>
 
         </div>
